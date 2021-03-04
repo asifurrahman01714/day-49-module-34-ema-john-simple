@@ -1,39 +1,24 @@
 import React from 'react';
 
 const Cart = (props) => {
+    console.log(props.cart);
     const cart = props.cart;
-    console.log(cart);
-    //const totalPrice = cart.reduce((total, prd) => total + prd.price, 0);
-    let totalPrice = 0;
+
+    let total = 0;
     for (let i = 0; i < cart.length; i++) {
-        const product = cart[i];
-        totalPrice = totalPrice + product.price;
-        
+        const productPrice = cart[i].price;
+        total = total + productPrice;
     }
 
-    let shippingPrice=0;
-    if (totalPrice> 35) {
-        shippingPrice = 0;
-    } else if(totalPrice> 15) {
-        shippingPrice = 4.99;
-    } else if(totalPrice > 0){
-        shippingPrice = 12.99;
+    function precision(num) {
+        return num.toFixed(2);
     }
-
-    const tax = (totalPrice/10).toFixed(2);
-    const grandTotal = (totalPrice + shippingPrice +Number(tax)).toFixed(2);
-    const formatNumber = (number) =>{
-        const precision = number.toFixed(2);
-        return Number(precision);
-    }
+    let tax = total/10;
     return (
         <div>
-            <h4>Order Summery</h4>
-            <h4>Items Ordered:{cart.length} </h4>
-            <p>Product Price: {totalPrice}</p>
-            <p><small>Shipping Price: {shippingPrice}</small></p>
-            <p>Tax + VAT: {formatNumber(totalPrice)}</p>
-            <h4>Total price: {grandTotal}</h4>
+            <h1>Order summery: {cart.length}</h1>
+            <h2>Tax : {precision(tax)}</h2>
+            <h2>Total Price: {precision(total)}</h2>
         </div>
     );
 };

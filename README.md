@@ -69,3 +69,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 # day-49-module-34-ema-john-simple
+
+# live site: https://ema-john-simple-ecommerce-website-by-asifurrahman.netlify.app/
+
+# *** call fakedata in shop.js file so that you can easily show the data.
