@@ -11,6 +11,7 @@ import {
 import Inventory from './components/Inventory/Inventory';
 import Riview from './components/Riview/Riview';
 import NotFound from './components/NotFound/NotFound';
+import ProductDetail from './components/ProductDetail/ProductDetail';
 
 function App() {
   return (
@@ -34,6 +35,9 @@ function App() {
             <Shop></Shop>
           </Route>
 
+          <Route path ="/productKey/:productKey">
+            <ProductDetail></ProductDetail>
+          </Route>
           <Route path="*">
             <NotFound></NotFound>
           </Route>
