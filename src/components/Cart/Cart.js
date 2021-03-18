@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 const Cart = (props) => {
     console.log(props.cart);
     const cart = props.cart;
@@ -7,7 +8,9 @@ const Cart = (props) => {
     let total = 0;
     for (let i = 0; i < cart.length; i++) {
         const productPrice = cart[i].price;
-        total = total + productPrice;
+        const productQuantity = cart[i].quantity;
+        total = total + productPrice * productQuantity;
+        
     }
 
     function precision(num) {
@@ -19,6 +22,9 @@ const Cart = (props) => {
             <h1>Order summery: {cart.length}</h1>
             <h2>Tax : {precision(tax)}</h2>
             <h2>Total Price: {precision(total)}</h2>
+            {
+                props.children
+            }
         </div>
     );
 };
