@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
-import fakeData from '../../fakeData';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
 import './Shop.css';
@@ -8,24 +7,32 @@ import {addToDatabaseCart, getDatabaseCart} from '../../utilities/databaseManage
 import { Link } from 'react-router-dom';
 
 
-const Shop = () => {
-    const first10 = fakeData.slice(0, 10);
-    const [products, setProducts] = useState(first10);
+const Shop = () => {  
+    // const first10 = fakeData.slice(0, 10);
+    const [products, setProducts] = useState([]);
+
+    // data gulo server theke collect korar kaj
+    useEffect(() => {
+        fetch('http://localhost:5000/products')
+        .then(res => res.json())
+        .then(data => setProducts(data))
+    },[])
     console.log(products);
 
     const [cart, setCart] = useState([]);
 
     useEffect(() => {
         const savedCart = getDatabaseCart();
-        console.log(savedCart);
         const productKeys = Object.keys(savedCart);
-        //const counts = productKeys.map(key => savedCart[key]);
-        const cartProducts = productKeys.map(key => {
-            const product = fakeData.find(pd => pd.key === key);
-            product.quantity = savedCart[key];
-            return product;
-        });
-        setCart(cartProducts);
+
+        fetch('http://localhost:5000/productsByKeys',{
+            method: 'POST',
+            headers: {"Content-Type": "application/json" },
+            body: JSON.stringify(productKeys)
+        })
+        .then(res => res.json())
+        .then(data => setCart(data))
+
     }, [])
     const handleProduct =(product) =>{
         console.log('product added');

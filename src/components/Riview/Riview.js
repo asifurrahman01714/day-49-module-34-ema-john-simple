@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {getDatabaseCart, processOrder, removeFromDatabaseCart} from '../../utilities/databaseManager'
-import fakeData from '../../fakeData';
 import RiviewItem from '../RiviewItem/RiviewItem';
 import Cart from '../Cart/Cart';
 import happyImage from '../../images/giphy.gif';
@@ -12,11 +11,6 @@ const Riview = () => {
     const [orderPlaced, setOrderPlaced] = useState(false);
     const history = useHistory();
     const hadleProceedCheckout =() =>{
-        // console.log('order placed');
-        // setCart([]);
-        // setOrderPlaced(true);
-        // processOrder();
-
         history.push('/shipment');
     }
     const removeProduct = (productKey) => {
@@ -28,18 +22,14 @@ const Riview = () => {
     useEffect(() => {
         const savedCart = getDatabaseCart();
         const productKeys = Object.keys(savedCart);
-        //const counts = productKeys.map(key => savedCart[key]);
-        const cartProducts = productKeys.map(key => {
-            const product = fakeData.find(pd => pd.key === key);
-            product.quantity = savedCart[key];
-            return product;
-        });
-        console.log(savedCart);
-        console.log(productKeys);
-        //console.log(counts);
-        console.log(cartProducts);
-        setCart(cartProducts);
-        
+
+        fetch('http://localhost:5000/productsByKeys',{
+            method: 'POST',
+            headers: {"Content-Type": "application/json" },
+            body: JSON.stringify(productKeys)
+        })
+        .then(res => res.json())
+        .then(data => setCart(data))
     },[]);
 
     let thankYou ;
