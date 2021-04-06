@@ -13,7 +13,7 @@ const Shop = () => {
 
     // data gulo server theke collect korar kaj
     useEffect(() => {
-        fetch('http://localhost:5000/products')
+        fetch('https://salty-tundra-44328.herokuapp.com/products')
         .then(res => res.json())
         .then(data => setProducts(data))
     },[])
@@ -25,7 +25,7 @@ const Shop = () => {
         const savedCart = getDatabaseCart();
         const productKeys = Object.keys(savedCart);
 
-        fetch('http://localhost:5000/productsByKeys',{
+        fetch('https://salty-tundra-44328.herokuapp.com/productsByKeys',{
             method: 'POST',
             headers: {"Content-Type": "application/json" },
             body: JSON.stringify(productKeys)
