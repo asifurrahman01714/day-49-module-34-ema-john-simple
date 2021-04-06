@@ -4,3 +4,4 @@
 
 # npm run build
 # firebase deploy
+# firebase site: https://ema-john-simple-by-asif.web.app
